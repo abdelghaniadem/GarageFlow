@@ -1,0 +1,48 @@
+@startuml
+left to right direction
+
+actor Administrateur
+actor "Responsable du garage" as Responsable
+actor Mécanicien
+
+rectangle "GarageFlow" {
+
+    usecase "Se connecter" as UC1
+
+    usecase "Gérer les utilisateurs" as UC2
+    usecase "Gérer les accès" as UC3
+
+    usecase "Gérer les clients" as UC4
+    usecase "Gérer les véhicules" as UC5
+    usecase "Gérer les réparations" as UC6
+    usecase "Gérer les pièces détachées" as UC7
+    usecase "Gérer les rendez-vous" as UC8
+    usecase "Gérer les factures" as UC9
+    usecase "Consulter le tableau de bord" as UC10
+
+    usecase "Consulter les réparations attribuées" as UC11
+    usecase "Consulter les véhicules" as UC12
+    usecase "Enregistrer un diagnostic" as UC13
+    usecase "Mettre à jour le statut" as UC14
+}
+
+Administrateur --> UC1
+Administrateur --> UC2
+Administrateur --> UC3
+
+Responsable --> UC1
+Responsable --> UC4
+Responsable --> UC5
+Responsable --> UC6
+Responsable --> UC7
+Responsable --> UC8
+Responsable --> UC9
+Responsable --> UC10
+
+Mécanicien --> UC1
+Mécanicien --> UC11
+Mécanicien --> UC12
+Mécanicien --> UC13
+Mécanicien --> UC14
+
+@enduml
