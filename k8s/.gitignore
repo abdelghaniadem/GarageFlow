@@ -1,0 +1,6 @@
+# Exclude local secret files containing real credentials
+postgres-secret.env
+backend-secret.env
+*.env
+!postgres-secret.env.example
+!backend-secret.env.example

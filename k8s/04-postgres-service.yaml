@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: garageflow-db
+  namespace: garageflow
+  labels:
+    app.kubernetes.io/name: garageflow-db
+    app.kubernetes.io/component: database
+    app.kubernetes.io/part-of: garageflow
+spec:
+  type: ClusterIP
+  ports:
+    - name: postgresql
+      port: 5432
+      targetPort: 5432
+  selector:
+    app.kubernetes.io/name: garageflow-postgres
+    app.kubernetes.io/component: database

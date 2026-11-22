@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: garageflow-backend-config
+  namespace: garageflow
+  labels:
+    app.kubernetes.io/name: garageflow-backend
+    app.kubernetes.io/component: api
+    app.kubernetes.io/part-of: garageflow
+data:
+  FLASK_ENV: "production"
+  JWT_ACCESS_TOKEN_EXPIRES: "86400"
+  CORS_ORIGINS: "http://localhost:8080,http://127.0.0.1:8080"
+  LOW_STOCK_THRESHOLD: "5"
+  GUNICORN_WORKERS: "2"
