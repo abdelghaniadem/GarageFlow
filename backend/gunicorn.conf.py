@@ -1,10 +1,12 @@
 # ==============================================================================
 # Gunicorn Production Configuration - GarageFlow Backend
 # ==============================================================================
+import os
 import multiprocessing
 
 bind = "0.0.0.0:5000"
-workers = multiprocessing.cpu_count() * 2 + 1
+# Dynamic worker calculation respecting container limits or explicit env variable
+workers = int(os.environ.get("GUNICORN_WORKERS", min(4, max(2, multiprocessing.cpu_count()))))
 worker_class = "sync"
 timeout = 60
 keepalive = 2

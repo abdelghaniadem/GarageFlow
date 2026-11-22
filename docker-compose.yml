@@ -40,6 +40,7 @@ services:
       JWT_ACCESS_TOKEN_EXPIRES: ${JWT_ACCESS_TOKEN_EXPIRES:-86400}
       CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:8080}
       LOW_STOCK_THRESHOLD: ${LOW_STOCK_THRESHOLD:-5}
+      GUNICORN_WORKERS: ${GUNICORN_WORKERS:-2}
     networks:
       - garageflow_net
     expose:

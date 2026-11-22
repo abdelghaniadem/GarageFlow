@@ -11,13 +11,20 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     curl \
     && rm -rf /var/lib/apt/lists/*
 
+# Create dedicated non-root application user and group (UID/GID 10001)
+RUN groupadd -r -g 10001 appgroup && \
+    useradd -r -u 10001 -g appgroup -d /app -s /sbin/nologin appuser
+
 # Install Python dependencies
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy backend source code and Gunicorn configuration
-COPY app/ ./app/
-COPY gunicorn.conf.py .
+# Copy backend source code and Gunicorn configuration with secure ownership
+COPY --chown=appuser:appgroup app/ ./app/
+COPY --chown=appuser:appgroup gunicorn.conf.py .
+
+# Switch to non-root user
+USER appuser:appgroup
 
 # Healthcheck using curl on Flask API health endpoint
 HEALTHCHECK --interval=15s --timeout=5s --start-period=10s --retries=3 \

@@ -24,9 +24,16 @@ from app.models import (
 @pytest.fixture(scope="module")
 def app_context():
     """Crée un contexte d'application de test sans exécuter de requêtes SQL."""
+    import os
+    prev = os.environ.get("TEST_DATABASE_URL")
+    os.environ["TEST_DATABASE_URL"] = "sqlite:///:memory:"
     app = create_app("testing")
     with app.app_context():
         yield app
+    if prev is not None:
+        os.environ["TEST_DATABASE_URL"] = prev
+    else:
+        os.environ.pop("TEST_DATABASE_URL", None)
 
 
 class TestClientModel:
